@@ -45,8 +45,24 @@ public class MessageController {
 	@GetMapping("/messages/update")
 	public ModelAndView update(ModelAndView mv, @RequestParam(value = "id", required = false, defaultValue = "1") int idMessage) {
 		//Spring récupère le param id et le connvertit en entier et l'affecte à la variable idMessage
-		mv.setViewName("messages/show");//le nom du fichier jsp
-		mv.addObject("message", "message mis à jour avec succès : "+ idMessage);//les données
+		Message m = new Message(idMessage, "mon message");
+		mv.setViewName("messages/update");//le nom du fichier jsp
+		mv.addObject("message", m);//les données
+		return mv;
+	}
+	
+	@PostMapping("/messages/update")
+	public ModelAndView add(ModelAndView mv, Message message) {
+		System.out.println(message.getMessage());
+		boolean valide = message.validate();
+		if(valide) {
+			messageService.update();
+			mv.setViewName("redirect:/messages");//réponse 302
+		}
+		else {
+			mv.setViewName("messages/update");
+			mv.addObject("message", message);
+		}
 		return mv;
 	}
 	
