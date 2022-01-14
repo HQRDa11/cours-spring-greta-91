@@ -49,7 +49,7 @@ public class ProductController {
 	@GetMapping("/products/update")
 	public ModelAndView update(ModelAndView mv, @RequestParam(value = "id", required = false, defaultValue = "1") int idProduct) {
 		//Spring récupère le param id et le connvertit en entier et l'affecte à la variable idProduit
-		Product m = new Product(idProduct, "mon produit","mon isbn","mon nom","ma designation",10.0,3,"ma categorie");
+		Product m = new Product(idProduct,"mon isbn","mon nom","ma designation",10.0,3,"ma categorie");
 		mv.setViewName("products/update");//le nom du fichier jsp
 		mv.addObject("product", m);//les données
 		return mv;
@@ -57,7 +57,7 @@ public class ProductController {
 	
 	@PostMapping("/products/update")
 	public ModelAndView add(ModelAndView mv, @Valid Product product, BindingResult br) {
-		System.out.println(product.getProduct());
+		System.out.println(product.getNom());
 //		boolean valide = message.validate();
 		System.out.println(br.getErrorCount());
 		System.out.println(br.getAllErrors());
@@ -75,19 +75,19 @@ public class ProductController {
 	@GetMapping("/products/add")
 	public ModelAndView showAddForm(ModelAndView mv) {
 		mv.setViewName("products/add");
+		mv.addObject("productBean",new Product("","","",0,0,""));
 		return mv;
 	}
 	
 	@PostMapping("/products/add")
-	public ModelAndView add(ModelAndView mv, 
-			@RequestParam(value="product") String product,
+	public ModelAndView add(ModelAndView mv,
 			@RequestParam(value="isbn") String isbn,
 			@RequestParam(value="nom") String nom,
 			@RequestParam(value="designation") String designation,
 			@RequestParam(value="prixHT") String prixHT,
 			@RequestParam(value="stock") String stock,
 			@RequestParam(value="categorie") String categorie) {
-		Product p = new Product(product,isbn,nom,designation,Double.parseDouble(prixHT),Integer.parseInt(stock),categorie);
+		Product p = new Product(isbn,nom,designation,Double.parseDouble(prixHT),Integer.parseInt(stock),categorie);
 		boolean valide = p.validate();
 		if(valide) {
 			productService.save();

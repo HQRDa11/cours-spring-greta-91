@@ -3,10 +3,13 @@ package fr.greta91.coursSpring.model;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 public class Product {
 	private int id;
 	
+	@NotNull
+    @Size(min = 13, max = 13)
 	private String isbn;
 	
 	@NotBlank(message = "Nom ne peut pas être vide !")
@@ -26,23 +29,17 @@ public class Product {
 	@NotBlank(message = "Categorie ne peut pas être vide !")
 	@NotNull(message = "Categorie ne peut pas être vide !")
 	private String categorie;
-	
-	@NotBlank(message = "Produit ne peut pas être vide !")
-	@NotNull(message = "Produit ne peut pas être vide !")
-	private String product;
 
 	public Product() {
 	}
 	
 	public Product(
-			String product,
 			String isbn,
 			String nom,
 			String designation,
 			double prixHT,
 			int stock,
 			String categorie) {
-		this.product = product;
 		this.isbn = isbn;
 		this.nom = nom;
 		this.designation = designation;
@@ -52,7 +49,6 @@ public class Product {
 	}
 	
 	public Product(int id, 
-			String product,
 			String isbn,
 			String nom,
 			String designation,
@@ -60,7 +56,6 @@ public class Product {
 			int stock,
 			String categorie) {
 		this.id = id;
-		this.product = product;
 		this.isbn = isbn;
 		this.nom = nom;
 		this.designation = designation;
@@ -71,9 +66,7 @@ public class Product {
 
 	public boolean validate() {
 		boolean isValid = true;
-		if(this.product.trim().isEmpty()) {
-			isValid = false;
-		}
+		
 		if(this.isbn.trim().isEmpty() || this.isbn.length() != 13) {
 			isValid = false;
 		}
@@ -102,14 +95,6 @@ public class Product {
 
 	public final void setId(int id) {
 		this.id = id;
-	}
-
-	public final String getProduct() {
-		return product;
-	}
-
-	public final void setProduct(String product) {
-		this.product = product;
 	}
 
 	public final String getIsbn() {
