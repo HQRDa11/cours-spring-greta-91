@@ -3,6 +3,7 @@ package fr.greta91.coursSpring.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,8 +12,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import fr.greta91.coursSpring.model.Message;
+import fr.greta91.coursSpring.service.MessageService;
+
 @Controller
 public class MessageController {
+	
+	@Autowired
+	MessageService messageService;
 	
 	@GetMapping("/messages")
 	public String list(Model model) {
@@ -51,9 +58,16 @@ public class MessageController {
 	
 	@PostMapping("/messages/add")
 	public ModelAndView add(ModelAndView mv, @RequestParam(value="message") String message) {
-		
-		mv.setViewName("messages/show");
-		mv.addObject("message", message);
+		Message m = new Message(message);
+		boolean valide = m.validate();
+		if(valide) {
+			messageService.save();
+			mv.setViewName("redirect:/messages");//réponse 302
+		}
+		else {
+			mv.setViewName("messages/add");
+			mv.addObject("erreur", "message ne peut pas être vide!");
+		}
 		return mv;
 	}
 }
