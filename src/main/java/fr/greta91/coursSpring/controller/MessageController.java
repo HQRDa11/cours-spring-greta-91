@@ -3,10 +3,14 @@ package fr.greta91.coursSpring.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -52,10 +56,12 @@ public class MessageController {
 	}
 	
 	@PostMapping("/messages/update")
-	public ModelAndView add(ModelAndView mv, Message message) {
+	public ModelAndView add(ModelAndView mv, @Valid Message message, BindingResult br) {
 		System.out.println(message.getMessage());
-		boolean valide = message.validate();
-		if(valide) {
+//		boolean valide = message.validate();
+		System.out.println(br.getErrorCount());
+		System.out.println(br.getAllErrors());
+		if(!br.hasErrors()) {
 			messageService.update();
 			mv.setViewName("redirect:/messages");//réponse 302
 		}

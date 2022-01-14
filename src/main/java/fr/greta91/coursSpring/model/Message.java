@@ -1,12 +1,16 @@
 package fr.greta91.coursSpring.model;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 public class Message {
 	private int id;
+	
+	@NotBlank(message = "Message ne peut pas être vide !")
+	@NotNull(message = "Message ne peut pas être vide !")
 	private String message;
 
-	
 	public Message() {
-		this.message = "";
 	}
 	
 	public Message(String message) {

@@ -12,9 +12,9 @@
 </head>
 <body>
 	<form:form modelAttribute="message" method="post">
-		<form:input path="message" cssErrorClass="erreur" value="${message.message}"/>
+		<form:input path="message" cssErrorClass="erreur"/>
 		<form:errors path="message"/>
-		<form:hidden path="id" value="${message.id}"/>
+		<form:hidden path="id"/>
 		<input type="submit" value="Modifier message">
 	</form:form>
 </body>
