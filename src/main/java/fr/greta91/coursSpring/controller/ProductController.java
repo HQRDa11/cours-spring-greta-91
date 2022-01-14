@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -56,7 +57,7 @@ public class ProductController {
 	}
 	
 	@PostMapping("/products/update")
-	public ModelAndView add(ModelAndView mv, @Valid Product product, BindingResult br) {
+	public ModelAndView update(ModelAndView mv, @Valid Product product, BindingResult br) {
 		System.out.println(product.getNom());
 //		boolean valide = message.validate();
 		System.out.println(br.getErrorCount());
@@ -73,29 +74,26 @@ public class ProductController {
 	}
 	
 	@GetMapping("/products/add")
-	public ModelAndView showAddForm(ModelAndView mv) {
+	public ModelAndView showAddForm(ModelAndView mv, @ModelAttribute("product") Product product) {
 		mv.setViewName("products/add");
 		mv.addObject("productBean",new Product("","","",0,0,""));
 		return mv;
 	}
 	
 	@PostMapping("/products/add")
-	public ModelAndView add(ModelAndView mv,
-			@RequestParam(value="isbn") String isbn,
-			@RequestParam(value="nom") String nom,
-			@RequestParam(value="designation") String designation,
-			@RequestParam(value="prixHT") String prixHT,
-			@RequestParam(value="stock") String stock,
-			@RequestParam(value="categorie") String categorie) {
-		Product p = new Product(isbn,nom,designation,Double.parseDouble(prixHT),Integer.parseInt(stock),categorie);
-		boolean valide = p.validate();
+	public ModelAndView add(ModelAndView mv, @Valid Product product, BindingResult br) {
+		boolean valide = !br.hasErrors();
 		if(valide) {
 			productService.save();
 			mv.setViewName("redirect:/products");//réponse 302
 		}
 		else {
+			List<ObjectError> allErrors = br.getAllErrors();
+			for (ObjectError temp : allErrors) {
+				System.out.println(temp);
+			}
 			mv.setViewName("products/add");
-			mv.addObject("erreur", "Produit ne peut pas être vide!");
+			mv.addObject("erreur", "Une erreur s'est produite!");
 		}
 		return mv;
 	}

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
- <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+	pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,41 +10,54 @@
 </head>
 <body>
 	<h1>Formulaire d'ajout</h1>
-	<form method="post">
+	<form:form modelAttribute="product" method="post">
 		<div>
-			<label for="product">Produit</label>
+			<label for="isbn">ISBN</label>
 			<!-- message=mon message -->
-			<input type="text" id="product" name="product">
-			<br>
-			<label for="isbn">isbn</label>
-			<input type="text" id="isbn" name="isbn">
-			<br>
-			<label for="nom">nom</label>
-			<input type="text" id="nom" name="nom">
-			<br>
-			<label for="designation">designation</label>
-			<input type="text" id="designation" name="designation">
-			<br>
-			<label for="prixHT">prixHT</label>
-			<input type="text" id="prixHT" name="prixHT">
-			<br>
-			<label for="stock">stock</label>
-			<input type="text" id="stock" name="stock">
-			<br>
-			<label for="categorie">categorie</label>
-			<input type="text" id="categorie" name="categorie">
-			<br>
+			<form:input id="isbn" path="isbn" cssErrorClass="erreur"/>
+			<form:errors path="isbn"/>
+			<form:hidden path="id"/>
+			<br> 
+			<label for="nom">Nom</label>
+			<!-- message=mon message -->
+			<form:input id="nom" path="nom" cssErrorClass="erreur"/>
+			<form:errors path="nom"/>
+			<form:hidden path="id"/>
+			<br> 
+			<label for="designation">Designation</label>
+			<!-- message=mon message -->
+			<form:input id="designation" path="designation" cssErrorClass="erreur"/>
+			<form:errors path="designation"/>
+			<form:hidden path="id"/>
+			<br> 
+			<label for="prixHT">Prix HT</label>
+			<!-- message=mon message -->
+			<form:input id="prixHT" path="prixHT" cssErrorClass="erreur"/>
+			<form:errors path="prixHT"/>
+			<form:hidden path="id"/>
+			<br> 
+			<label for="stock">Stock</label>
+			<!-- message=mon message -->
+			<form:input id="stock" path="stock" cssErrorClass="erreur"/>
+			<form:errors path="stock"/>
+			<form:hidden path="id"/>
+			<br> 
+			<label for="categorie">Categorie</label>
+			<!-- message=mon message -->
+			<form:input id="categorie" path="categorie" cssErrorClass="erreur"/>
+			<form:errors path="categorie"/>
+			<form:hidden path="id"/>
+			<br> 
 			<!-- afficher message d'erreur si le champ est invalide -->
 			<c:if test="${erreur != null}">
 				<p>${erreur}</p>
 			</c:if>
 		</div>
-		
+
 		<div>
 			<input type="submit" value="Créer produit">
 		</div>
-		
-	</form>
-	
+
+	</form:form>
 </body>
 </html>

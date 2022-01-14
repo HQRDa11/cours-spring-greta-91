@@ -3,13 +3,17 @@ package fr.greta91.coursSpring.model;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.ISBN;
+import org.hibernate.validator.constraints.Length;
 
 public class Product {
 	private int id;
 	
 	@NotNull
-    @Size(min = 13, max = 13)
+    @Length(min=13,max=13, message="ISBN Inccorrect")
 	private String isbn;
 	
 	@NotBlank(message = "Nom ne peut pas être vide !")
@@ -19,11 +23,13 @@ public class Product {
 	@NotBlank(message = "Designation ne peut pas être vide !")
 	@NotNull(message = "Designation ne peut pas être vide !")
 	private String designation;
-	
-	@Min(value = 0, message = "Prix Hors-Taxes doit être supérieur ou égal à 0")
+
+	@NotNull
+	@Positive(message = "Prix Hors-Taxes doit être supérieur ou égal à 0")
 	private double prixHT;
 	
-	@Min(value = 0, message = "Stock doit être supérieur ou égal à 0")
+	@NotNull
+	@Min(value = 1, message = "Stock doit être supérieur ou égal à 1")
 	private int stock;
 	
 	@NotBlank(message = "Categorie ne peut pas être vide !")
