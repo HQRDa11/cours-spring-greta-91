@@ -11,6 +11,7 @@
 	<form method="post">
 		<div>
 			<label for="message">Message</label>
+			<!-- message=mon message -->
 			<input type="text" id="message" name="message">
 		</div>
 		
