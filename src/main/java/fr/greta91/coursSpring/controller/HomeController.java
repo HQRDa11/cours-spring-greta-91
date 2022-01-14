@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.awt.*;
 import java.awt.image.*;
 
-@Controller
+@Controller //composant de type controller de MVC
 public class HomeController {
 	@ResponseBody
 	@GetMapping("/")
