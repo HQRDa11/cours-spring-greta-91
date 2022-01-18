@@ -57,10 +57,6 @@ public class MessageController {
 	
 	@PostMapping("/messages/update")
 	public ModelAndView add(ModelAndView mv, @Valid Message message, BindingResult br) {
-		System.out.println(message.getMessage());
-//		boolean valide = message.validate();
-		System.out.println(br.getErrorCount());
-		System.out.println(br.getAllErrors());
 		if(!br.hasErrors()) {
 			messageService.update();
 			mv.setViewName("redirect:/messages");//réponse 302
