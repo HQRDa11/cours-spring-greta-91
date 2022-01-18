@@ -2,12 +2,14 @@ package fr.greta91.coursSpring;
 
 import java.util.ArrayList;
 
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.web.context.annotation.SessionScope;
 
 import fr.greta91.coursSpring.model.Categorie;
@@ -16,11 +18,11 @@ import fr.greta91.coursSpring.model.Produit;
 import fr.greta91.coursSpring.temp.LocalDB;
 
 @SpringBootApplication
+@EnableAspectJAutoProxy(proxyTargetClass=true) 
 //@Configuration
 //@EnableAutoConfiguration //convention sur la configuration
 //@ComponentScan
 public class CoursSpringApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(CoursSpringApplication.class, args);
 	}
@@ -53,6 +55,7 @@ public class CoursSpringApplication {
 		db.setCategories(categories);
 		return db;
 	}
+	
 	@Bean
 	@SessionScope
 	public Panier panier() {
