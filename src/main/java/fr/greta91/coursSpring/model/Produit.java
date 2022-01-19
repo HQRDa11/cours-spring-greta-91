@@ -28,7 +28,7 @@ public class Produit implements Serializable {
 	private int stock;
 
 	@NotNull
-	@DecimalMin("0.00")
+	@DecimalMin("0.01")
 	private double prixHT;
 	
 	@NotNull

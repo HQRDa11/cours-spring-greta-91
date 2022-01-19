@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import fr.greta91.coursSpring.model.Categorie;
 import fr.greta91.coursSpring.model.Produit;
+import fr.greta91.coursSpring.model.Utilisateur;
 
 public class LocalDB implements Serializable{
 
@@ -15,6 +16,7 @@ public class LocalDB implements Serializable{
 	
 	private List<Produit> produits = new ArrayList<Produit>();
 	private List<Categorie> categories = new ArrayList<Categorie>();
+	private List<Utilisateur> utilisateurs = new ArrayList<Utilisateur>();
 	
 	public List<Produit> getProduits() {
 		return produits;
@@ -36,7 +38,6 @@ public class LocalDB implements Serializable{
 
 	public void saveProduit(Produit p) {
 		produits.add(p);
-		
 	}
 	
 	public List<Produit> findProduitByNom(String search) {
@@ -84,6 +85,14 @@ public class LocalDB implements Serializable{
 		}
 		return p;
 	}
+	public Optional<Utilisateur> findUtilisateurByUsername(String username) {
+		return utilisateurs.stream()
+	      .filter(user -> username.equals(user.getUsername())).findFirst();
+		
+	}
 	
+	public void saveUtilisateur(Utilisateur u) {
+		utilisateurs.add(u);
+	}
 	
 }

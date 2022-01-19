@@ -81,7 +81,7 @@ public class ProduitController {
 	@PostMapping("/admin/produit/add")
 	public ModelAndView traiterForm(@ModelAttribute("produit") @Valid Produit produit, BindingResult errors,
 			ModelAndView mv) {
-
+		
 		if (errors.hasErrors()) {
 			List<Categorie> cats = categorieService.findAll();
 			mv.addObject("categories", cats);

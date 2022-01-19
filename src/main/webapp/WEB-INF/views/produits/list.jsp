@@ -3,9 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <jsp:include page="/WEB-INF/views/includes/header.jsp" />
-
 <c:if test="${!(param.search == null || param.search == '')}">
 	<p>Résultats pour "<c:out value='${param.search}'/>":</p>
+	<p>Résultats pour "${param.search}":</p>
 </c:if>
 <h1>Liste des produits</h1>
 

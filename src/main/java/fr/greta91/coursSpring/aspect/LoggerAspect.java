@@ -15,13 +15,13 @@ public class LoggerAspect {
 	private Logger logger = LoggerFactory.getLogger(LoggerAspect.class);
 
 	@Around("execution (* fr..*(..))")
-	public Object checkSecurity(ProceedingJoinPoint joinPoint) throws Throwable {
+	public Object logger(ProceedingJoinPoint joinPoint) throws Throwable {
 		String packageName = joinPoint.getSignature().getDeclaringTypeName();
 		String methodName = joinPoint.getSignature().getName();
 
 		logger.info("Entering method [" + packageName + "." + methodName + "]");
 		for (Object arg : joinPoint.getArgs()) {
-			logger.info("Args [" + arg.toString() + "]");
+//			logger.info("Args [" + arg.toString() + "]");
 		}
 		Object output = joinPoint.proceed();
 		logger.info("Exiting method [" + packageName + "." + methodName + "]");
