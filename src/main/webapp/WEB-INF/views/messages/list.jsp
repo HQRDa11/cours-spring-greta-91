@@ -23,5 +23,6 @@
 		
 		</p>
 	</c:forEach>
+	<a href="/deconnecter">Se connecter</a>
 </body>
 </html>
