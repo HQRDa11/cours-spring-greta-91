@@ -40,7 +40,7 @@ public class UtilisateurServiceImpl implements UtilisateurService, UserDetailsSe
 		Utilisateur utilisateur = optUser.get();
 		List<GrantedAuthority> auths = new ArrayList<GrantedAuthority>();
 		if(utilisateur.getUsername().equals("toto")) {
-			auths.add(new SimpleGrantedAuthority("ADMIN"));			
+			auths.add(new SimpleGrantedAuthority("ROLE_ADMIN"));			
 		}
 		else {
 			auths.add(new SimpleGrantedAuthority("USER"));

@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.AnyRequestMatcher;
 
 @Configuration
 public class WebSecurityConfig 
@@ -37,14 +38,28 @@ public class WebSecurityConfig
 	
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		// TODO Auto-generated method stub
-		super.configure(web);
+		//configuration des ressources communes
+		web
+			.ignoring()
+			.mvcMatchers("/css/**")
+			.mvcMatchers("/images/**")
+			.mvcMatchers("/js/**");
 	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		// TODO Auto-generated method stub
-		super.configure(http);
+		//système d'autorisation
+//		http.authorizeRequests().anyRequest().anonymous();//on autorise tout le monde
+
+		http
+			.authorizeRequests()
+			.mvcMatchers("/admin/**").hasRole("ADMIN")//"ROLE_ADMIN"
+//			.mvcMatchers("/user/**").hasAuthority("USER")//"USER"
+			.mvcMatchers("/user/**").access("hasRole('ADMIN') or hasAuthority('USER')")
+			.anyRequest().authenticated()
+//			.mvcMatchers("/**").permitAll()//on autorise tout le monde
+			.and()
+			.formLogin().permitAll();// /login -> accès à tous
 	}
 	
 	
