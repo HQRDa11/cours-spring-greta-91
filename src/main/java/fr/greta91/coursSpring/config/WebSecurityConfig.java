@@ -56,10 +56,12 @@ public class WebSecurityConfig
 			.mvcMatchers("/admin/**").hasRole("ADMIN")//"ROLE_ADMIN"
 //			.mvcMatchers("/user/**").hasAuthority("USER")//"USER"
 			.mvcMatchers("/user/**").access("hasRole('ADMIN') or hasAuthority('USER')")
-			.anyRequest().authenticated()
-//			.mvcMatchers("/**").permitAll()//on autorise tout le monde
+//			.anyRequest().authenticated()
+			.mvcMatchers("/**").permitAll()//on autorise tout le monde
 			.and()
-			.formLogin().permitAll();// /login -> accès à tous
+			.formLogin().permitAll()// /login -> accès à tous
+			.and()
+			.logout().logoutUrl("/deconnecter");
 	}
 	
 	

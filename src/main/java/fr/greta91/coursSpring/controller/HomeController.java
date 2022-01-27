@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 import javax.imageio.ImageIO;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
@@ -11,6 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
 import java.awt.*;
 import java.awt.image.*;
 
@@ -35,5 +39,12 @@ public class HomeController {
 		g.fillOval(marge, marge, diametre, diametre);
 		g.dispose();
 		ImageIO.write(img, "png", out);
+	}
+	@GetMapping("/deconnecter")
+	public ModelAndView deconnecter(HttpServletRequest request, ModelAndView mv) throws ServletException {
+		request.logout();
+		mv.setViewName("redirect:/");
+		return mv;
+		
 	}
 }

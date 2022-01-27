@@ -12,5 +12,6 @@
 	<c:forEach var="m" items="${messages}">
 		<p>${m}</p>
 	</c:forEach>
+	<a href="/deconnecter">Se connecter</a>
 </body>
 </html>
